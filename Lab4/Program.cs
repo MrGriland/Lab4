@@ -32,11 +32,23 @@ namespace Lab4
             {
                 Console.WriteLine($"{s4.plenty[i]}");
             }
-            Console.WriteLine($"Мощность множества {s1.plenty.Length}");
-            Console.WriteLine($"Подмно множества {q1-q2}");
+            Console.WriteLine($"Мощность множества {!s1}");
+            Console.WriteLine($"Подмножество множества {q1|q2}");
+            Set.Owner owner = new Set.Owner(228, "Grisha", "BSTU");
+            Set.Date date = new Set.Date(09, 01, 2002);
+            Console.WriteLine($"Сумма множества {StatisticOperation.Sum(s1)}");
+            Console.WriteLine($"Разница между максимальным и минимальным {StatisticOperation.Maxmin(s1)}");
+            string st = "Hello mad world";
+            Console.WriteLine($"Вставка запятых {StatisticOperation.After(st)}");
+            Console.WriteLine($"Удаление одинаковых ");
+            s1.Delete();
+            for (int i = 0; i < s1.plenty.Length; i++)
+            {
+                Console.WriteLine($"{s1.plenty[i]}");
+            }
         }
     }
-    class Set
+    public class Set
     {
         public int[] plenty;
         public int this[int index]
@@ -95,7 +107,7 @@ namespace Lab4
             }
             return new Set(z);
         }
-        public static bool operator -(Set s1, Set s2)
+        public static bool operator |(Set s1, Set s2)
         {
             int buf = 0;
             for (int i = 0; i < s1.plenty.Length; i++)
@@ -112,6 +124,58 @@ namespace Lab4
                 return true;
             else
                 return false;
+        }
+        public static int operator !(Set s1)
+        {
+                return s1.plenty.Length;
+        }
+        public class Owner
+        {
+            private int id;
+            private string name;
+            private string organisation;
+
+            public Owner(int id, string name, string organisation)
+            {
+                this.id = id;
+                this.name = name;
+                this.organisation = organisation;
+            }
+
+            public int ID
+            {
+                get => id;
+            }
+
+            public string Name
+            {
+                get => name;
+            }
+            public string Organisation
+            {
+                get => organisation;
+            }
+        }
+
+        public class Date
+        {
+            private int day, month, year;
+            public int Day
+            {
+                get => day;
+            }
+            public int Month
+            {
+                get => month;
+            }
+            public int Year
+            {
+                get => year;
+            }
+            public Date(int d, int m, int y)
+            {
+                day = d; month = m; year = y;
+            }
         }
     }
 }
